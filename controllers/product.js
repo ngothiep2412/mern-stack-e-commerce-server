@@ -13,14 +13,17 @@ export const getAllProducts = asyncError(async (req, res, next) => {
       $regex: keyword ? keyword : "",
       $options: "i",
     },
-    category: category ? category : undefined,
+    category: category ? category : { $exists: true },
   });
+
+  console.log(products);
 
   res.status(200).json({
     success: true,
     products,
   });
 });
+
 export const getAdminProducts = asyncError(async (req, res, next) => {
   const products = await Product.find({}).populate("category");
 
