@@ -146,6 +146,22 @@ export const updatePic = asyncError(async (req, res, next) => {
   });
 });
 
+export const updatePicV2 = asyncError(async (req, res, next) => {
+  // const user = await User.findById(req.user._id);
+
+  const file = getDataUri(req.file);
+
+  // await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+  const myCloud = await cloudinary.v2.uploader.upload(file.content);
+
+  res.status(200).json({
+    success: true,
+    message: "Avatar Updated Successfully",
+    url: myCloud.secure_url,
+  });
+});
+
 export const forgetpassword = asyncError(async (req, res, next) => {
   const { email } = req.body;
   const user = await User.findOne({ email });

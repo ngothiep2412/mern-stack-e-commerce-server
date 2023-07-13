@@ -8,6 +8,7 @@ import {
   resetpassword,
   signup,
   updatePic,
+  updatePicV2,
   updateProfile,
 } from "../controllers/user.js";
 import { isAuthenticated } from "../middlewares/auth.js";
@@ -28,5 +29,8 @@ router.put("/updatepic", isAuthenticated, singleUpload, updatePic);
 
 // Forget Password & Reset Password
 router.route("/forgetpassword").post(forgetpassword).put(resetpassword);
+
+// Upload Pic
+router.route("/uploadimg").post(singleUpload, updatePicV2);
 
 export default router;
